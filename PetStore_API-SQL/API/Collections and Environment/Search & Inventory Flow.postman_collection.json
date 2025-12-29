@@ -1,0 +1,338 @@
+{
+	"info": {
+		"_postman_id": "c96262c7-220e-45ca-9707-dd7bf4182b47",
+		"name": "Search & Inventory Flow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21371444",
+		"_collection_link": "https://team22-2651.postman.co/workspace/PetStore_Portfolio_Mariia_Stolb~9cde69ce-8f83-473b-ba9e-7b74e27b30e9/collection/21371444-c96262c7-220e-45ca-9707-dd7bf4182b47?action=share&source=collection_link&creator=21371444"
+	},
+	"item": [
+		{
+			"name": "Create new pet status available",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//generate unique ID\r",
+							"const petId_1 = Math.floor(Math.random() * 1000000);\r",
+							"\r",
+							"//generate name of pet\r",
+							"const petName = pm.variables.replaceIn(\"{{$randomFirstName}}\");\r",
+							"\r",
+							"pm.collectionVariables.set(\"petId_1\", petId_1);\r",
+							"pm.collectionVariables.set(\"petName\", petName);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{petId_1}},\r\n  \"name\": \"{{petName}}\",\r\n  \"category\": {\r\n    \"id\": 1,\r\n    \"name\": \"Dogs\"\r\n  },\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_URL}}/pet",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"pet"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'https://petstore3.swagger.io/api/v3/pet' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"id\": 10,\r\n  \"name\": \"Sandy\",\r\n  \"category\": {\r\n    \"id\": 1,\r\n    \"name\": \"Dogs\"\r\n  },\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Create new pet status pending",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//generate unique ID\r",
+							"const petId_2 = Math.floor(Math.random() * 1000000);\r",
+							"\r",
+							"//generate name of pet\r",
+							"const petName = pm.variables.replaceIn(\"{{$randomFirstName}}\");\r",
+							"\r",
+							"pm.collectionVariables.set(\"petId_2\", petId_2);\r",
+							"pm.collectionVariables.set(\"petName\", petName);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{petId_2}},\r\n  \"name\": \"{{petName}}\",\r\n  \"category\": {\r\n    \"id\": 1,\r\n    \"name\": \"Dogs\"\r\n  },\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"pending\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_URL}}/pet",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"pet"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'https://petstore3.swagger.io/api/v3/pet' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"id\": 10,\r\n  \"name\": \"Sandy\",\r\n  \"category\": {\r\n    \"id\": 1,\r\n    \"name\": \"Dogs\"\r\n  },\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Get findByStatus =available",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response is not empty\", function () {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json.length).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"/*I validate response structure by checking required fields in array items.*/\r",
+							"pm.test(\"Each pet contains required fields\", function () {\r",
+							"    const json = pm.response.json();\r",
+							"\r",
+							"    pm.expect(json[0]).to.have.property(\"id\");\r",
+							"    pm.expect(json[0]).to.have.property(\"name\");\r",
+							"    pm.expect(json[0]).to.have.property(\"status\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status matches requested filter\", function () {\r",
+							"    const json = pm.response.json();\r",
+							"    const requestedStatus = pm.request.url.query.get(\"status\");\r",
+							"\r",
+							"    json.forEach(pet => {\r",
+							"        pm.expect(pet.status).to.equal(requestedStatus);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_URL}}/pet/findByStatus?status=available",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"pet",
+						"findByStatus"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "available"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'https://petstore3.swagger.io/api/v3/pet/findByStatus?status=available' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "Get findByStatus =pending",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_URL}}/pet/findByStatus?status=pending",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"pet",
+						"findByStatus"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "pending"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'https://petstore3.swagger.io/api/v3/pet/findByStatus?status=available' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "Get findByStatus =available, pending multiple filters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_URL}}/pet/findByStatus?status=available,pending",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"pet",
+						"findByStatus"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "available,pending"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'https://petstore3.swagger.io/api/v3/pet/findByStatus?status=available' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "Get findByStatus =approved negative",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_URL}}/pet/findByStatus?status=approved",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"pet",
+						"findByStatus"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "approved"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'https://petstore3.swagger.io/api/v3/pet/findByStatus?status=available' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "petId_2",
+			"value": ""
+		},
+		{
+			"key": "petName",
+			"value": ""
+		},
+		{
+			"key": "petId_3",
+			"value": ""
+		},
+		{
+			"key": "petId_1",
+			"value": ""
+		}
+	]
+}

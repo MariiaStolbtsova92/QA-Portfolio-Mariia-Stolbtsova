@@ -1,0 +1,244 @@
+{
+	"info": {
+		"_postman_id": "a54845e0-c671-4c45-952d-da297c54b885",
+		"name": "Complete Pet Lifecycle (CRUD Flow)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21371444",
+		"_collection_link": "https://team22-2651.postman.co/workspace/PetStore_Portfolio_Mariia_Stolb~9cde69ce-8f83-473b-ba9e-7b74e27b30e9/collection/21371444-a54845e0-c671-4c45-952d-da297c54b885?action=share&source=collection_link&creator=21371444"
+	},
+	"item": [
+		{
+			"name": "Create new pet",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//generate unique ID\r",
+							"const petId = Math.floor(Math.random() * 1000000);\r",
+							"\r",
+							"//generate name of pet\r",
+							"const petName = pm.variables.replaceIn(\"{{$randomFirstName}}\");\r",
+							"\r",
+							"pm.collectionVariables.set(\"petId\", petId);\r",
+							"pm.collectionVariables.set(\"petName\", petName);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*I validate that the status field contains only allowed business values to prevent invalid product states.*/\r",
+							"pm.test(\"Status has valid value\", function () {\r",
+							"    const json = pm.response.json();\r",
+							"    const validStatuses = [\"available\", \"sold\", \"pending\"];\r",
+							"\r",
+							"    pm.expect(validStatuses).to.include(json.status);\r",
+							"});\r",
+							"\r",
+							"/*The root-level name represents the pet's name, which is a mandatory business field.\r",
+							"Category and tag names are metadata and are not validated in this scenario.*/\r",
+							"pm.test(\"Name is not empty\", function () {\r",
+							"    const json = pm.response.json();\r",
+							"\r",
+							"    pm.expect(json).to.have.property(\"name\");\r",
+							"    pm.expect(json.name).to.be.a(\"string\");\r",
+							"    pm.expect(json.name.length).to.be.above(0);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{petId}},\r\n  \"name\": \"{{petName}}\",\r\n  \"category\": {\r\n    \"id\": 1,\r\n    \"name\": \"Dogs\"\r\n  },\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_URL}}/pet",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"pet"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'https://petstore3.swagger.io/api/v3/pet' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"id\": 10,\r\n  \"name\": \"Sandy\",\r\n  \"category\": {\r\n    \"id\": 1,\r\n    \"name\": \"Dogs\"\r\n  },\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Get pet by ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_URL}}/pet/{{petId}}",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"pet",
+						"{{petId}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'https://petstore3.swagger.io/api/v3/pet/718877' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Existing Pet",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": {{petId}},\n  \"name\": \"Suzie\",\n  \"category\": {\n    \"id\": 1,\n    \"name\": \"Dogs\"\n  },\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"available\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_URL}}/pet",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"pet"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'PUT' \\\n  'https://petstore3.swagger.io/api/v3/pet' \\\n  -H 'accept: application/json' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n  \"id\": 718877,\n  \"name\": \"Suzie\",\n  \"category\": {\n    \"id\": 1,\n    \"name\": \"Dogs\"\n  },\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"available\"\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Get pet by ID Check changes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_URL}}/pet/{{petId}}",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"pet",
+						"{{petId}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'https://petstore3.swagger.io/api/v3/pet/718877' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a pet",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": ""
+					}
+				],
+				"url": {
+					"raw": "{{base_URL}}/pet/{{petId}}",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"pet",
+						"{{petId}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'DELETE' \\\r\n  'https://petstore3.swagger.io/api/v3/pet/10' \\\r\n  -H 'accept: */*"
+			},
+			"response": []
+		},
+		{
+			"name": "Get pet by ID Check deleting",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_URL}}/pet/{{petId}}",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"pet",
+						"{{petId}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'https://petstore3.swagger.io/api/v3/pet/718877' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "petId",
+			"value": ""
+		},
+		{
+			"key": "petName",
+			"value": ""
+		},
+		{
+			"key": "petId_1",
+			"value": ""
+		},
+		{
+			"key": "order_Id",
+			"value": ""
+		}
+	]
+}

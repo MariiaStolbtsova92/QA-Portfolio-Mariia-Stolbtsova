@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "b9bab77b-9642-457e-b26a-07e1692a2731",
+		"name": "Order Flow Negative",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21371444",
+		"_collection_link": "https://team22-2651.postman.co/workspace/PetStore_Portfolio_Mariia_Stolb~9cde69ce-8f83-473b-ba9e-7b74e27b30e9/collection/21371444-b9bab77b-9642-457e-b26a-07e1692a2731?action=share&source=collection_link&creator=21371444"
+	},
+	"item": [
+		{
+			"name": "Check order in base invalid ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_URL}}/store/order/126@",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"store",
+						"order",
+						"126@"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'https://petstore3.swagger.io/api/v3/store/order/10' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete non-existing order",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "{{base_URL}}/store/order/126",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"store",
+						"order",
+						"126"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'DELETE' \\\r\n  'https://petstore3.swagger.io/api/v3/store/order/10' \\\r\n  -H 'accept: */*'"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "petName",
+			"value": ""
+		}
+	]
+}

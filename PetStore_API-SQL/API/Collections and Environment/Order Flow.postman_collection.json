@@ -1,0 +1,268 @@
+{
+	"info": {
+		"_postman_id": "0055424b-93d6-49b6-87ce-82990e675f55",
+		"name": "Order Flow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21371444",
+		"_collection_link": "https://team22-2651.postman.co/workspace/PetStore_Portfolio_Mariia_Stolb~9cde69ce-8f83-473b-ba9e-7b74e27b30e9/collection/21371444-0055424b-93d6-49b6-87ce-82990e675f55?action=share&source=collection_link&creator=21371444"
+	},
+	"item": [
+		{
+			"name": "Create new pet status available",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//generate unique ID\r",
+							"const petId_3 = Math.floor(Math.random() * 1000000);\r",
+							"\r",
+							"//generate name of pet\r",
+							"const petName = pm.variables.replaceIn(\"{{$randomFirstName}}\");\r",
+							"\r",
+							"pm.environment.set(\"petId_3\", petId_3);\r",
+							"pm.collectionVariables.set(\"petName\", petName);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{petId_3}},\r\n  \"name\": \"{{petName}}\",\r\n  \"category\": {\r\n    \"id\": 1,\r\n    \"name\": \"Dogs\"\r\n  },\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_URL}}/pet",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"pet"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'https://petstore3.swagger.io/api/v3/pet' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"id\": 10,\r\n  \"name\": \"Sandy\",\r\n  \"category\": {\r\n    \"id\": 1,\r\n    \"name\": \"Dogs\"\r\n  },\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Create order for a pet",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"/*generate unique ID\r",
+							"const order_Id = Math.floor(Math.random() * 1000000);\r",
+							"\r",
+							"\r",
+							"pm.environment.set(\"order_Id\", order_Id);*/\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*const jsonData = pm.response.json();\r",
+							"pm.environment.set(\"order_Id\", jsonData.id);*/\r",
+							"\r",
+							"\r",
+							"const responseData = pm.response.json();\r",
+							"\r",
+							"\r",
+							"const orderId = responseData.id;\r",
+							"\r",
+							"\r",
+							"pm.environment.set(\"orderId\", orderId.toString());"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 1,\r\n  \"petId\": {{petId_3}},\r\n  \"quantity\": 5,\r\n  \"shipDate\": \"2025-12-16T17:59:30Z\",\r\n  \"status\": \"approved\",\r\n  \"complete\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_URL}}/store/order",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"store",
+						"order"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'https://petstore3.swagger.io/api/v3/store/order' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"id\": 10,\r\n  \"petId\": 198772,\r\n  \"quantity\": 7,\r\n  \"shipDate\": \"2025-12-16T17:59:30.446Z\",\r\n  \"status\": \"approved\",\r\n  \"complete\": true\r\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Get pet by ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_URL}}/pet/{{petId_3}}",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"pet",
+						"{{petId_3}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'https://petstore3.swagger.io/api/v3/pet/718877' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "Check order in base",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Quantity is greater than zero\", function () {\r",
+							"    const json = pm.response.json();\r",
+							"\r",
+							"    pm.expect(json).to.have.property(\"quantity\");\r",
+							"    pm.expect(json.quantity).to.be.a(\"number\");\r",
+							"    pm.expect(json.quantity).to.be.above(0);\r",
+							"});\r",
+							"/*I validated that order quantity follows business rules and cannot be /zero or negative.*/"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_URL}}/store/order/{{orderId}}",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"store",
+						"order",
+						"{{orderId}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'https://petstore3.swagger.io/api/v3/store/order/10' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete order",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "{{base_URL}}/store/order/{{orderId}}",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"store",
+						"order",
+						"{{orderId}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'DELETE' \\\r\n  'https://petstore3.swagger.io/api/v3/store/order/10' \\\r\n  -H 'accept: */*'"
+			},
+			"response": []
+		},
+		{
+			"name": "Check order in base after deleting",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_URL}}/store/order/{{order_Id}}",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"store",
+						"order",
+						"{{order_Id}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'https://petstore3.swagger.io/api/v3/store/order/10' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "petName",
+			"value": ""
+		}
+	]
+}

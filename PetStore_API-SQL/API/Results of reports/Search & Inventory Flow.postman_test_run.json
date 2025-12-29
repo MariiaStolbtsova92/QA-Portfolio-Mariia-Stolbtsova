@@ -1,0 +1,175 @@
+{
+	"id": "103a7e9a-ca32-40e2-84ce-6894b66009da",
+	"name": "Search & Inventory Flow",
+	"timestamp": "2025-12-19T19:44:13.316Z",
+	"collection_id": "21371444-c96262c7-220e-45ca-9707-dd7bf4182b47",
+	"folder_id": 0,
+	"environment_id": "21371444-70250fb6-b051-48c5-a2f4-946b8d0f81fa",
+	"totalPass": 3,
+	"delay": "1",
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-12-19T19:44:10.995Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "754244d1-cc98-4f64-85cf-9a6ccc103d9a",
+			"name": "Create new pet status available",
+			"url": "https://petstore.swagger.io/v2/pet",
+			"time": 188,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				188
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "b4c04010-c2b2-4c66-830f-25661ce4d4b2",
+			"name": "Create new pet status pending",
+			"url": "https://petstore.swagger.io/v2/pet",
+			"time": 148,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				148
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "6542daea-b665-4762-badd-0d3d0cc26823",
+			"name": "Get findByStatus =available",
+			"url": "https://petstore.swagger.io/v2/pet/findByStatus?status=available",
+			"time": 442,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response is not empty": true,
+				"Each pet contains required fields": true,
+				"Status matches requested filter": true
+			},
+			"testPassFailCounts": {
+				"Response is not empty": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Each pet contains required fields": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status matches requested filter": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				442
+			],
+			"allTests": [
+				{
+					"Response is not empty": true,
+					"Each pet contains required fields": true,
+					"Status matches requested filter": true
+				}
+			]
+		},
+		{
+			"id": "4a0222cd-4db1-4796-8881-49c51cc69204",
+			"name": "Get findByStatus =pending",
+			"url": "https://petstore.swagger.io/v2/pet/findByStatus?status=pending",
+			"time": 134,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				134
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "a561a6b0-a582-42b7-90fb-00ede6615c4b",
+			"name": "Get findByStatus =available, pending multiple filters",
+			"url": "https://petstore.swagger.io/v2/pet/findByStatus?status=available,pending",
+			"time": 141,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				141
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "12bee63a-99ff-4faf-8ea8-ab7688c3727a",
+			"name": "Get findByStatus =approved negative",
+			"url": "https://petstore.swagger.io/v2/pet/findByStatus?status=approved",
+			"time": 133,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				133
+			],
+			"allTests": [
+				{}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 1186,
+	"collection": {
+		"requests": [
+			{
+				"id": "754244d1-cc98-4f64-85cf-9a6ccc103d9a",
+				"method": "POST"
+			},
+			{
+				"id": "b4c04010-c2b2-4c66-830f-25661ce4d4b2",
+				"method": "POST"
+			},
+			{
+				"id": "6542daea-b665-4762-badd-0d3d0cc26823",
+				"method": "GET"
+			},
+			{
+				"id": "4a0222cd-4db1-4796-8881-49c51cc69204",
+				"method": "GET"
+			},
+			{
+				"id": "a561a6b0-a582-42b7-90fb-00ede6615c4b",
+				"method": "GET"
+			},
+			{
+				"id": "12bee63a-99ff-4faf-8ea8-ab7688c3727a",
+				"method": "GET"
+			}
+		]
+	}
+}

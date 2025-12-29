@@ -1,0 +1,237 @@
+{
+	"info": {
+		"_postman_id": "79a9ea8f-a773-430a-8683-03f0855c55ec",
+		"name": "Complete Pet Lifecycle (CRUD Flow) Negative scenario",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21371444",
+		"_collection_link": "https://team22-2651.postman.co/workspace/PetStore_Portfolio_Mariia_Stolb~9cde69ce-8f83-473b-ba9e-7b74e27b30e9/collection/21371444-79a9ea8f-a773-430a-8683-03f0855c55ec?action=share&source=collection_link&creator=21371444"
+	},
+	"item": [
+		{
+			"name": "Get pet by ID with non-existing ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_URL}}/pet/1",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"pet",
+						"1"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'https://petstore3.swagger.io/api/v3/pet/718877' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "Create new pet",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//generate unique ID\r",
+							"const petId = Math.floor(Math.random() * 1000000);\r",
+							"\r",
+							"//generate name of pet\r",
+							"const petName = pm.variables.replaceIn(\"{{$randomFirstName}}\");\r",
+							"\r",
+							"pm.collectionVariables.set(\"petId\", petId);\r",
+							"pm.collectionVariables.set(\"petName\", petName);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{petId}},\r\n  \"name\": \"{{petName}}\",\r\n  \"category\": {\r\n    \"id\": 1,\r\n    \"name\": \"Dogs\"\r\n  },\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_URL}}/pet",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"pet"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'https://petstore3.swagger.io/api/v3/pet' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"id\": 10,\r\n  \"name\": \"Sandy\",\r\n  \"category\": {\r\n    \"id\": 1,\r\n    \"name\": \"Dogs\"\r\n  },\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a pet",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": ""
+					}
+				],
+				"url": {
+					"raw": "{{base_URL}}/pet/{{petId}}",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"pet",
+						"{{petId}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'DELETE' \\\r\n  'https://petstore3.swagger.io/api/v3/pet/10' \\\r\n  -H 'accept: */*"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a pet Second time",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accept",
+						"value": ""
+					}
+				],
+				"url": {
+					"raw": "{{base_URL}}/pet/{{petId}}",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"pet",
+						"{{petId}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'DELETE' \\\r\n  'https://petstore3.swagger.io/api/v3/pet/10' \\\r\n  -H 'accept: */*"
+			},
+			"response": []
+		},
+		{
+			"name": "Get pet by ID Check deleting",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_URL}}/pet/{{petId}}",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"pet",
+						"{{petId}}"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'GET' \\\r\n  'https://petstore3.swagger.io/api/v3/pet/718877' \\\r\n  -H 'accept: application/json'"
+			},
+			"response": []
+		},
+		{
+			"name": "Create new pet without required field - status",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//generate unique ID\r",
+							"const petId = Math.floor(Math.random() * 1000000);\r",
+							"\r",
+							"//generate name of pet\r",
+							"const petName = pm.variables.replaceIn(\"{{$randomFirstName}}\");\r",
+							"\r",
+							"pm.collectionVariables.set(\"petId\", petId);\r",
+							"pm.collectionVariables.set(\"petName\", petName);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{petId}},\r\n  \"name\": \"{{petName}}\",\r\n  \"category\": {\r\n    \"id\": 1,\r\n    \"name\": \"Dogs\"\r\n  },\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_URL}}/pet",
+					"host": [
+						"{{base_URL}}"
+					],
+					"path": [
+						"pet"
+					]
+				},
+				"description": "Generated from cURL: curl -X 'POST' \\\r\n  'https://petstore3.swagger.io/api/v3/pet' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"id\": 10,\r\n  \"name\": \"Sandy\",\r\n  \"category\": {\r\n    \"id\": 1,\r\n    \"name\": \"Dogs\"\r\n  },\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}'"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "petId",
+			"value": ""
+		},
+		{
+			"key": "petName",
+			"value": ""
+		},
+		{
+			"key": "petId_1",
+			"value": ""
+		},
+		{
+			"key": "order_Id",
+			"value": ""
+		}
+	]
+}
