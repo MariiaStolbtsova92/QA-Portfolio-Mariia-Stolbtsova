@@ -1,0 +1,17 @@
+{
+  "name": "playwright_tests",
+  "version": "1.0.0",
+  "scripts": { 
+  "test": "playwright test",
+  "test:headed": "playwright test --headed",
+  "test:ui": "playwright test --ui",
+  "report": "playwright show-report"},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "End-to-end UI tests for qauto.forstudy.space sign-up form using Playwright",
+  "devDependencies": {
+    "@playwright/test": "^1.61.0",
+    "@types/node": "^25.9.3"
+  }
+}
