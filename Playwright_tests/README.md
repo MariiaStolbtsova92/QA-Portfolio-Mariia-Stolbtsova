@@ -1,10 +1,31 @@
-# Playwright Sign-Up Form Automation
+# Playwright Registration Tests — Portfolio Project
 
- E2E UI tests for the registration form on [qauto.forstudy.space](https://qauto.forstudy.space/), built with Playwright + TypeScript using the Page Object Model.
+![Playwright Tests](https://github.com/MariiaStolbtsova92/QA-Portfolio-Mariia-Stolbtsova/actions/workflows/playwright-registration-tests.yml/badge.svg)
 
-## Tech stack
+## Project Overview
 
-Playwright · TypeScript · Node.js
+This portfolio project focuses on automated testing of the sign-up (registration) flow on the QAuto demo website, covering both the UI and the underlying API.
+The main goal is to demonstrate practical skills in test automation with Playwright, the Page Object Model, API testing, and CI integration.
+
+## Project Goals
+
+- Automate key validation scenarios of a registration form
+- Validate both UI behavior and API responses for the same flow
+- Demonstrate a clean, maintainable automation structure (POM)
+- Integrate automated tests into a CI pipeline (GitHub Actions)
+
+## Test Object
+
+- **Platform:** QAuto Demo
+- **URL:** https://qauto.forstudy.space/
+
+**Modules in Scope:**
+- User registration — UI (field validation, form state, happy path)
+- User registration — API (`/api/auth/signup`: success, missing fields, password mismatch)
+
+## Tech Stack
+
+Playwright · TypeScript · Node.js · GitHub Actions
 
 ## Structure
 
@@ -13,46 +34,21 @@ Playwright · TypeScript · Node.js
 │   ├── pages/HomePage.ts      # navigation, opening the sign-up form
 │   └── forms/SignUpForm.ts    # form fields, validation triggers, error checks
 ├── tests/
-│   ├── registration.spec.ts    # UI tests
-│   └── api-signup.spec.ts      # API tests
+│   ├── registration.spec.ts   # UI tests
+│   └── api-signup.spec.ts     # API tests
 ├── playwright.config.ts
 └── package.json
 ```
 
-Locators and interactions live in `pom/`, test scenarios and assertions live in `tests/` — a UI change only needs a fix in one place.
-
-## What's covered
-
-**UI**
-- Name / Last name — required, invalid characters, length limits
-- Email — required, invalid format
-- Password — required, complexity rules
-- Re-enter password — required, mismatch check
-- Register button — disabled until the form is valid
-- Successful registration — full happy path
-- Invalid field shows a red border
-
-**API** (`/api/auth/signup`)
-- Successful signup, including cleanup of the created account
-- Validation error when a required field (email) is missing
-- Validation error on password mismatch
-
-## Getting started
+## Running Tests
 
 ```bash
-git clone <this-repo-url>
-cd Playwright_tests
 npm install
 npx playwright install
-```
-
-## Running tests
-
-```bash
-npm test              # all tests, headless, all browsers
+npm test              # all tests, headless
 npm run test:headed   # visible browser
-npm run test:ui       # Playwright UI Mode (best for debugging)
-npm run report        # open last HTML report
+npm run test:ui       # interactive UI Mode (best for debugging)
+npm run report        # view last HTML report
 ```
 
 Single browser only:
@@ -60,8 +56,7 @@ Single browser only:
 npx playwright test --project=chromium
 ```
 
-## Possible improvements
+## Possible Improvements
 
 - Test that submitting a fully empty form shows the correct error under each field at once
 - Move credentials/base URL to `.env`
-- Add CI (GitHub Actions)
