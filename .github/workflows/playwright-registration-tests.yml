@@ -4,11 +4,12 @@ on:
   push:
     branches: [master]
     paths:
-      - 'Playwright-Registration-Tests/**'
+      - 'Playwright_tests/**'
   pull_request:
     branches: [master]
     paths:
-      - 'Playwright-Registration-Tests/**'
+      - 'Playwright_tests/**'
+  workflow_dispatch:
 
 jobs:
   test:
@@ -16,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Playwright-Registration-Tests
+        working-directory: Playwright_tests
 
     steps:
       - name: Checkout code
@@ -41,5 +42,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
-          path: Playwright-Registration-Tests/playwright-report/
+          path: Playwright_tests/playwright-report/
           retention-days: 7
