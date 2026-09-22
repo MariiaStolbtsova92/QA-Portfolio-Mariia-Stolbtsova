@@ -1,6 +1,6 @@
 # Playwright Sign-Up Form Automation
 
-E2E UI tests for the registration form on [qauto.forstudy.space](https://qauto.forstudy.space/), built with Playwright + TypeScript using the Page Object Model.
+ E2E UI tests for the registration form on [qauto.forstudy.space](https://qauto.forstudy.space/), built with Playwright + TypeScript using the Page Object Model.
 
 ## Tech stack
 
